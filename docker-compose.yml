@@ -1,0 +1,92 @@
+version: '2'
+
+services:
+  base:
+    image: eeacms/tct-biodiversity:1.3
+    environment:
+      TZ: Europe/Copenhagen
+      DEBUG: 'False'
+      PORT: 80
+    env_file:
+    - ./env-files/mysql.env
+
+  benin:
+    extends:
+      service: base
+    depends_on:
+    - mysql
+    ports:
+      - "8002:80"
+    environment:
+      DEBUG: 'True'
+    env_file:
+    - ./env-files/mysql.env
+    - ./env-files/benin.env
+
+  burundi:
+    extends:
+      service: base
+    depends_on:
+    - mysql
+    ports:
+      - "8004:80"
+    environment:
+      DEBUG: 'True'
+      PORT: 7004
+    env_file:
+    - ./env-files/mysql.env
+    - ./env-files/burundi.env
+
+  maroc:
+    extends:
+      service: base
+    depends_on:
+    - mysql
+    ports:
+      - "8010:80"
+    environment:
+      DEBUG: 'True'
+    env_file:
+    - ./env-files/mysql.env
+    - ./env-files/maroc.env
+
+  niger:
+    extends:
+      service: base
+    depends_on:
+    - mysql
+    ports:
+      - "8011:80"
+    environment:
+      DEBUG: 'True'
+    env_file:
+    - ./env-files/mysql.env
+    - ./env-files/niger.env
+
+  training:
+    extends:
+      service: base
+    depends_on:
+    - mysql
+    ports:
+      - "8013:80"
+    environment:
+      DEBUG: 'True'
+    env_file:
+    - ./env-files/mysql.env
+    - ./env-files/training.env
+
+  mysql:
+    image: mysql:latest
+    environment:
+      TZ: Europe/Copenhagen
+    env_file:
+    - ./env-files/mysql.env
+    volumes:
+    - data:/var/lib/mysql
+    command: "--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+
+
+volumes:
+  data:
+    driver: local
