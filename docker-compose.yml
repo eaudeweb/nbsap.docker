@@ -12,7 +12,7 @@ services:
     - staticdata:/var/local/tct/static
 
   nbsap-static:
-    image: nginx:alpine
+    image: nginx:1.11.13
     depends_on:
     - base
     environment:
