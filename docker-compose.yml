@@ -8,6 +8,8 @@ services:
       DEBUG: 'False'
     env_file:
     - ./env-files/mysql.env
+    volumes:
+    - staticdata:/var/local/tct/static
 
   nbsap-static:
     image: nginx:alpine
@@ -16,20 +18,20 @@ services:
     environment:
       TZ: Europe/Copenhagen
       NGINX_CONF: |-
-      server {
-          listen       80;
+        server {
+          listen 80;
 
-          location / {
-              root /var/local/tct/tct/static;
-              sendfile on;
-              tcp_nopush on;
-              gzip on;
-              gzip_types text/plain application/x-javascript text/css;
-              expires 1d;
+          location /static {
+            sendfile on;
+            tcp_nopush on;
+            gzip on;
+            gzip_types text/plain application/x-javascript text/css;
+            expires 1d;
+            root /var/local/tct;
           }
-      }
+        }
     volumes:
-    - staticdata:/var/local/tct/tct/static:ro
+    - staticdata:/var/local/tct/static:ro
 
   benin:
     extends:
