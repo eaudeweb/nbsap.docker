@@ -9,6 +9,28 @@ services:
     env_file:
     - ./env-files/mysql.env
 
+  nbsap-static:
+    image: nginx:alpine
+    depends_on:
+    - base
+    environment:
+      TZ: Europe/Copenhagen
+      NGINX_CONF: |-
+      server {
+          listen       80;
+
+          location / {
+              root /var/local/tct/tct/static;
+              sendfile on;
+              tcp_nopush on;
+              gzip on;
+              gzip_types text/plain application/x-javascript text/css;
+              expires 1d;
+          }
+      }
+    volumes:
+    - staticdata:/var/local/tct/tct/static:ro
+
   benin:
     extends:
       service: base
@@ -87,4 +109,6 @@ services:
 
 volumes:
   data:
+    driver: local
+  staticdata:
     driver: local
