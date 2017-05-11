@@ -22,12 +22,12 @@ services:
           listen 80;
 
           location /static {
+            root /var/local/tct;
             sendfile on;
             tcp_nopush on;
             gzip on;
             gzip_types text/plain application/x-javascript text/css;
             expires 1d;
-            root /var/local/tct;
           }
         }
     volumes:
@@ -40,8 +40,6 @@ services:
     - mysql
     ports:
       - "8002:80"
-    environment:
-      DEBUG: 'True'
     env_file:
     - ./env-files/mysql.env
     - ./env-files/benin.env
@@ -53,8 +51,6 @@ services:
     - mysql
     ports:
       - "8004:80"
-    environment:
-      DEBUG: 'True'
     env_file:
     - ./env-files/mysql.env
     - ./env-files/burundi.env
@@ -66,8 +62,6 @@ services:
     - mysql
     ports:
       - "8010:80"
-    environment:
-      DEBUG: 'True'
     env_file:
     - ./env-files/mysql.env
     - ./env-files/maroc.env
@@ -79,8 +73,6 @@ services:
     - mysql
     ports:
       - "8011:80"
-    environment:
-      DEBUG: 'True'
     env_file:
     - ./env-files/mysql.env
     - ./env-files/niger.env

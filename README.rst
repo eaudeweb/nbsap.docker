@@ -1,21 +1,7 @@
-National Biodiversity Strategies and Action Plan
-================================================
+Docker orchestration for NBSAP
+==============================
 
 .. contents ::
-
-
-Project name and whereabouts
-----------------------------
-The project name is National Biodiversity Strategies and Action Plan (or simply NBSAP).
-It is a platform for organizing the implementation of a country's
-national biodiversity strategy after AICHI (and by case after EU Strategy).
-It consists of two panels each corresponding an operation: viewing and editing.
-The first panel allows anyone to overview the aichi goals, targets and
-indicators along with national strategy mappings (the way a country develops its
-own strategy in terms of objectives and actions) and its implementation.
-The second panel(Admin), authentication-available only, allows an user to actually define
-the national strategy. (e.g. add/modify/delete an objective, action or even
-elements from AICHI) in the purpose of building it.
 
 
 Prerequisites
@@ -64,17 +50,27 @@ Where ``$INSTANCE_PORT`` is one of the following:
 
 You should replace ``$PASSWORD`` with the password set in ``mysql.env``, ``DATABASE`` with the ``DATABASES_NAME`` set in the instance coresponding env file and ``backup.sql`` with the name of the .sql file containing your data dump.
 
-7. Add conf file::
+7. Setup virtual host file::
 
     $ cp conf-files/nbsap.conf /etc/httpd/conf.d/nbsap.conf
+    $ service httpd reload
 
-8. If something does not work as you expect, check the logs::
+8. If you need to run in debug mode, add the following lines in ``docker-compose.yml``, in the corresponding service::
+
+    environment:
+      DEBUG: 'True'
+
+    # restart the container
+    $ docker-compose restart INSTANCE_NAME
+
+9. If something does not work as you expect, check the logs::
 
     $ docker logs -f nbsapdocker_$INSTANCE_NAME_1
 
 You can open a new issue `here <https://github.com/eaudeweb/nbsap.docker/issues>`_. You should put in the new issue the errors and the logs.
 
-9. For development follow these `steps <https://github.com/eea/eea.docker.tct/tree/master#run-in-devel-with-docker-compose>`_.
+
+For development follow these `steps <https://github.com/eea/eea.docker.tct/tree/master#run-in-devel-with-docker-compose>`_.
 
 Upgrade
 -------
