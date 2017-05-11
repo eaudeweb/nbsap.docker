@@ -1,6 +1,5 @@
-===============================================
-Quick Installation Guide for TCT platform
-===============================================
+National Biodiversity Strategies and Action Plan
+================================================
 
 .. contents ::
 
@@ -19,100 +18,67 @@ the national strategy. (e.g. add/modify/delete an objective, action or even
 elements from AICHI) in the purpose of building it.
 
 
-Run in devel with Docker Compose
---------------------------------
+Installation
+------------
 
-**Create and edit the following files**::
+* Install `Docker <https://docker.com>`_
+* Install `Docker Compose <https://docs.docker.com/compose>`_
 
-Edit *mysql.env*::
+Usage
+-----
 
-  $ cp env-files/mysql.env.example env-files/mysql.env
-  $ vim env-files/mysql.env
+1. Clone the repository::
 
-Edit *demo.env*. You can change the environment variables to suit your needs. In *demo.env.example* file you can see an example of how this variables should look like::
+    $ git https://github.com/eaudeweb/nbsap.docker.git
+    $ cd nbsap.docker
+   
+2. Start application stack::
 
-  $ cp env-files/demo.env.example env-files/demo.env
-  $ vim env-files/demo.env
+    $ docker-compose up -d
+    $ docker-compose logs
 
-**Start the containers**::
+3. See it in action::
 
-  $ docker-compose up -d
+    http://0.0.0.0:$INSTANCE_PORT
 
-**Copy apache.conf file to the Apache container**::
-
-    $ docker cp conf-files/apache.conf tct_apache_1:/usr/local/apache2/conf/extra/vh-my-app.conf
-    $ docker-compose restart apache
-
-
-Common configuration
---------------------
-
-Set *ALLOWED_USERS* in settings to restrict access to a specific set of usernames.
-
-See *settings.py* for LDAP Authentication configuration.
+\* Where ``$INSTANCE_PORT`` is one of the following:
+  * Benin - 8002
+  * Burundi - 8004
+  * Maroc - 8010
+  * Niger - 8011
+  * Training - 8013
 
 
-=================
-Translation files
-=================
-For translations there are two methods.
+Upgrade
+-------
 
-1. Manual translation
+1. Get the latest source code::
 
-Run over the entire source tree and pull out all strings marked for translation::
+    $ cd nbsap.docker
+    $ git pull
 
-  $ docker exec -it tct_demo_1 bash
-  $ cd tct
-  $ django-admin.py makemessages -a
+2. Get the latest docker images::
 
-Edit <msgstr> for each <msgid> in tct/locale/_LANGUAGE_/LC_MESSAGE/django.po
+    $ docker-compose pull
 
-Compile .po file created with previous command::
+3. Restart application stack::
 
-  $ django-admin.py compilemessages
+    $ docker-compose up -d
 
-Restart server::
+4. Check that everything is up-and-running::
 
-  $ docker-compose restart demo
+   $ docker-compose ps
 
-2. Automatic translation
+5. See the logs::
 
-Enter the application container::
-
-  $ docker exec -it tct_demo_1 bash
-
-Create a superuser::
-
-  $ ./manage.py createsuperuser
-  # surf over /translate to use Rosetta tool for translation
-  # complete the forms within the correct translations
-  # restart server when ready
-  $ docker-compose restart demo
+   $ docker-compose logs
 
 
-========
 Contacts
 ========
-The project owner is EEA (European Environment Agency)
 
-Technical development team: contact at eaudeweb.ro
+People involved in this project are:
 
-
-=====================
-Copyright and license
-=====================
-Copyright 2007 European Environment Agency (EEA)
-
-Licensed under the EUPL, Version 1.1 or – as soon they will be approved
-by the European Commission - subsequent versions of the EUPL (the "Licence");
-
-You may not use this work except in compliance with the Licence.
-
-You may obtain a copy of the Licence at:
-https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
-
-Unless required by applicable law or agreed to in writing, software distributed under the Licence is distributed on an "AS IS" basis,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-
-See the Licence for the specific language governing permissions and limitations under the Licence.
-
+* Cornel Nitu (cornel.nitu at eaudeweb.ro)
+* Iulia Chiriac (iulia.chiriac at eaudeweb.ro)
+* Gabriela Strezea (gabriela.strezea at eaudeweb.ro)
