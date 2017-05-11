@@ -41,12 +41,12 @@ Usage
 
     http://0.0.0.0:$INSTANCE_PORT
 
-\* Where ``$INSTANCE_PORT`` is one of the following:
-  * Benin - 8002
-  * Burundi - 8004
-  * Maroc - 8010
-  * Niger - 8011
-  * Training - 8013
+Where ``$INSTANCE_PORT`` is one of the following:
+  * *Benin* - 8002
+  * *Burundi* - 8004
+  * *Maroc* - 8010
+  * *Niger* - 8011
+  * *Training* - 8013
 
 
 Upgrade

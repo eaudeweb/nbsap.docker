@@ -1,3 +1,0 @@
-[submodule "eea.docker.tct"]
-	path = eea.docker.tct
-	url = https://github.com/eea/eea.docker.tct.git
